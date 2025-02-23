@@ -4,7 +4,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 const Profile = () => {
   return (
     <div className="flex items-center gap-3 p-2">
-      <div className="border-r pr-3 flex items-center gap-2 border-gray-300">
+      <div className="border-r pr-3 flex items-center gap-2 border-[#EDEDED]">
         <img
           src="/header/profile.png"
           alt="Profile"
