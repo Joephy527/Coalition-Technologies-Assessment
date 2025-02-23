@@ -34,3 +34,16 @@ export type chartData = {
   systolic: number;
   diastolic: number;
 };
+
+export type list = {
+  name: string;
+  description: string;
+  status: string;
+};
+
+export type historyCard = {
+  imageSrc: string;
+  name: string;
+  value: string;
+  state: string;
+};

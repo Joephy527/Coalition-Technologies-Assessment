@@ -1,4 +1,3 @@
-import React from "react";
 import {
   CartesianGrid,
   XAxis,
@@ -8,7 +7,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import { chartDatas } from "../../../types/diagnosis";
+import type { chartDatas } from "../../../types/diagnosis";
 
 const Chart = ({ data }: chartDatas) => {
   const CustomTooltip = ({
@@ -22,8 +21,8 @@ const Chart = ({ data }: chartDatas) => {
   }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-surfContainerHigh rounded-sm py-2 px-2.5">
-          <p className="text-xs font-medium">{`${payload[0].payload.date}, ${payload[0].payload.year}`}</p>
+        <div className="bg-gray-600 text-white rounded-sm py-2 px-2.5">
+          <p className="text-xs font-medium">{`${payload[0].payload.date}`}</p>
           <p className="text-xs font-light">{`${payload[0].value} systolic blood pressure`}</p>
           <p className="text-xs font-light">{`${payload[1].value} diastolic blood pressure`}</p>
         </div>
@@ -41,20 +40,32 @@ const Chart = ({ data }: chartDatas) => {
           top: 0,
           right: 0,
           bottom: 0,
-          left: 0,
+          left: -30,
         }}
-        className="-ml-8 pr-4 w-full"
+        className="w-full"
       >
         <CartesianGrid
-          stroke="#072635"
+          stroke="#CBC8D4"
           vertical={false}
           fillOpacity={0.6}
           className="w-full"
         />
 
         <Tooltip
-          cursor={{ stroke: "#FFFFFF", strokeDasharray: "5 5" }}
+          cursor={{ stroke: "#E66FD2", strokeDasharray: "5 5" }}
           content={<CustomTooltip />}
+        />
+
+        <YAxis
+          type="number"
+          domain={[
+            (dataMin: number) => Math.floor(dataMin / 10) * 10 - 10, // Round down to nearest 10
+            (dataMax: number) => Math.ceil(dataMax / 10) * 10 + 10, // Round up to nearest 10
+          ]}
+          axisLine={{ stroke: "#CBC8D4" }}
+          className="text-xs -z-10 text-center leading-[17px]"
+          tick={{ fill: "#072635" }}
+          tickLine={{ stroke: "#CBC8D4" }}
         />
 
         <Line
@@ -67,6 +78,13 @@ const Chart = ({ data }: chartDatas) => {
           fill="#C26EB4"
           // dot={false}
           dot={{
+            stroke: "#FFFFFF",
+            fill: "#E66FD2",
+            strokeWidth: 1,
+            r: 7,
+            fillOpacity: 1,
+          }}
+          activeDot={{
             stroke: "#FFFFFF",
             fill: "#E66FD2",
             strokeWidth: 1,
@@ -91,6 +109,13 @@ const Chart = ({ data }: chartDatas) => {
             r: 7,
             fillOpacity: 1,
           }}
+          activeDot={{
+            stroke: "#FFFFFF",
+            fill: "#8C6FE6",
+            strokeWidth: 1,
+            r: 7,
+            fillOpacity: 1,
+          }}
           className="z-20"
         />
         <XAxis
@@ -99,16 +124,6 @@ const Chart = ({ data }: chartDatas) => {
           tickLine={false}
           className="text-xs text-center leading-[17px]"
           padding={{ right: 10 }}
-        />
-
-        <YAxis
-          type="number"
-          domain={[
-            (dataMin: number) => (dataMin < 10 ? 0 : dataMin - 10),
-            (dataMax: number) => (dataMax === 0 ? 1 : dataMax + 20),
-          ]}
-          className="text-xs -z-10 text-center leading-[17px]"
-          tick={{ fill: "#072635" }}
         />
       </LineChart>
     </ResponsiveContainer>
