@@ -23,7 +23,7 @@ const LabResults = () => {
   });
   return (
     <div className="p-5 flex flex-col gap-4 rounded-[16px] bg-white">
-      <h2 className="text-2xl font-extrabold leading-[33px]">Diagnosis List</h2>
+      <h2 className="text-2xl font-extrabold leading-[33px]">Lab Results</h2>
 
       {error ? (
         <span>An error has occurred: {error.message}</span>
