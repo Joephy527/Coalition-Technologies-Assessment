@@ -22,9 +22,9 @@ const BloodPressureChart = ({ data }: { data: diagnosisHistorys }) => {
           <h3 className="text-[18px] font-bold">Blood Pressure</h3>
 
           <div className="flex items-center gap-4">
-            <span className="text-sm leading-[19px]">Last 6 months</span>
+            <span className="text-sm mt-0.5 leading-[19px]">Last 6 months</span>
 
-            <MdKeyboardArrowDown size={10} />
+            <MdKeyboardArrowDown size={20} />
           </div>
         </div>
 

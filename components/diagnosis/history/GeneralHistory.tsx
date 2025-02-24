@@ -1,5 +1,5 @@
 import HistoryCard from "./HistoryCard";
-import { diagnosisHistory } from "../../../types/diagnosis";
+import type { diagnosisHistory } from "../../../types/diagnosis";
 
 const GeneralHistory = ({ data }: { data: diagnosisHistory }) => {
   const generalHistory = [
@@ -30,7 +30,7 @@ const GeneralHistory = ({ data }: { data: diagnosisHistory }) => {
           className={`p-4 rounded-xl basis-[calc((100%-42px)/3)] ${index === 2 ? "bg-[#FFE6F1]" : index === 0 ? "bg-[#E0F3FA]" : "bg-[#FFE6E9]"}`}
           key={index}
         >
-          <HistoryCard index={index} {...history} />
+          <HistoryCard {...history} />
         </div>
       ))}
     </div>

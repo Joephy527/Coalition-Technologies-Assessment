@@ -32,7 +32,7 @@ const History = () => {
       {error ? (
         <span>An error has occurred: {error.message}</span>
       ) : isPending ? (
-        <span>Loding...</span>
+        <span>Loading...</span>
       ) : (
         <>
           <BloodPressureChart data={data[0].diagnosis_history} />

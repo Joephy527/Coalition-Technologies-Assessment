@@ -1,18 +1,7 @@
-import { TiArrowSortedDown } from "react-icons/ti";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import type { historyCard } from "../../../types/diagnosis";
 
-const HistoryCard = ({
-  imageSrc,
-  name,
-  value,
-  state,
-  index,
-}: {
-  imageSrc: string;
-  name: string;
-  value: string;
-  state: string;
-  index: number;
-}) => {
+const HistoryCard = ({ imageSrc, name, value, state }: historyCard) => {
   return (
     <div className="flex flex-col gap-4">
       <img
@@ -27,7 +16,12 @@ const HistoryCard = ({
       </div>
 
       <div className="flex items-center gap-2">
-        {index === 2 && <TiArrowSortedDown size={20} />}
+        {state !== "Normal" &&
+          (state === "Lower than Average" ? (
+            <TiArrowSortedDown size={20} />
+          ) : (
+            <TiArrowSortedUp />
+          ))}
         <span className="text-sm leading-[19px]">{state}</span>
       </div>
     </div>
