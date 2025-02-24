@@ -1,22 +1,24 @@
-interface DetailProps {
-  
+import React from "react";
+import Profile from "../profile/Profile";
+
+interface Patient {
+  name: string;
+  gender: string;
+  age: number;
+  image: string;
 }
 
-const Detail = () => {
+interface DetailProps {
+  patients: Patient[];
+  selectedPatient: string | null;
+}
+
+const Detail: React.FC<DetailProps> = ({ patients, selectedPatient }) => {
   return (
-   <div className="fle flex-col p-5 items-center rounded-[16px] bg-white">
-    <img/>
-    <h1></h1>
-
-    <div className= "flex flex-col items-start">
-
+    <div className="flex flex-col p-1 items-start justify-center rounded-[16px] bg-white w-full m-0">
+      <Profile patients={patients} selectedPatient={selectedPatient} />
     </div>
-
-    <button></button>
-    
-    </div>
-
-  )
+  );
 };
 
 export default Detail;
