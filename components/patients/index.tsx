@@ -1,46 +1,76 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
+import type { patient, patientData } from "../../types/patients";
+import { BsThreeDots } from "react-icons/bs";
 
-interface Patient {
-  name: string;
-  gender: string;
-  age: number;
-  image: string;
-}
+const Patients = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ["patientData"],
+    queryFn: async () => {
+      const response = await fetch(
+        "https://fedskillstest.coalitiontechnologies.workers.dev",
+        {
+          headers: {
+            Authorization: "Basic " + btoa("coalition:skills-test"),
+          },
+        },
+      );
 
-interface PatientsProps {
-  patients: Patient[];
-  onPatientSelect: (name: string) => void;
-  selectedPatient: string | null;
-}
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-const Patients: React.FC<PatientsProps> = ({
-  patients,
-  onPatientSelect,
-  selectedPatient,
-}) => {
+      return response.json();
+    },
+  });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (isPending) {
+    return <span className="bg-white w-full rounded-2xl">Loading...</span>;
+  }
+
+  if (error) {
+    return (
+      <span className="bg-white w-full rounded-2xl">
+        An error has occurred: {error.message}
+      </span>
+    );
+  }
+
+  const patientsData: patientData[] = data?.map((patient: patient) => ({
+    name: patient.name,
+    gender: patient.gender,
+    age: patient.age,
+    image: patient.profile_picture,
+  }));
+
+  const searchParams = new URLSearchParams(location.search);
+  const selectedPatient = searchParams.get("patient") || patientsData[0].name;
+
+  const handlePatientSelect = (name: string) => {
+    const params = new URLSearchParams(location.search);
+    params.set("patient", name);
+    navigate(`?${params.toString()}`, { replace: true });
+  };
+
   return (
-    <div className="bg-gray rounded-[16px] shadow-md w-full max-w-md mx-auto h-screen flex flex-col pl-0">
+    <div className="bg-white rounded-[16px] shadow-md w-full max-h-fit max-w-md mx-auto flex flex-col pl-0">
       <div className="flex justify-between items-center pl-4 pr-4">
         <h1 className="text-3xl p-5 font-bold">Patients</h1>
         <img src="/patients/Search.png" alt="Search" className="w-6 h-6" />
       </div>
 
-      <div
-        style={{
-          height: "calc(100% - 80px)",
-          overflowY: "auto",
-          paddingRight: "6px",
-        }}
-        className="flex-1 px-0"
-      >
+      <div className="h-[1040px] pr-[6px] overflow-y-auto px-0">
         <div className="flex flex-col space-y-1">
-          {patients.map((patient) => (
+          {patientsData.map((patient) => (
             <div
               key={patient.name}
               className={`flex items-center justify-between w-full p-3 py-5 cursor-pointer ${
                 selectedPatient === patient.name ? "bg-[#D8FCF7]" : ""
               }`}
-              onClick={() => onPatientSelect(patient.name)}
+              onClick={() => handlePatientSelect(patient.name)}
             >
               <div className="flex items-center space-x-4 pl-4">
                 <img
@@ -57,11 +87,7 @@ const Patients: React.FC<PatientsProps> = ({
                   </p>
                 </div>
               </div>
-              <img
-                src="/patients/horizontal.svg"
-                alt="Toggle"
-                className="w-6 h-6 ml-auto"
-              />
+              <BsThreeDots size={18} />
             </div>
           ))}
         </div>

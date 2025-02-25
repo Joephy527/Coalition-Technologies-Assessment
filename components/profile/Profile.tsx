@@ -1,19 +1,46 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { patient } from "../../types/patients";
+import { useLocation } from "react-router-dom";
 
-interface Patient {
-  name: string;
-  gender: string;
-  age: number;
-  image: string;
-}
+const Profile = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ["patientData"],
+    queryFn: async () => {
+      const response = await fetch(
+        "https://fedskillstest.coalitiontechnologies.workers.dev",
+        {
+          headers: {
+            Authorization: "Basic " + btoa("coalition:skills-test"),
+          },
+        },
+      );
 
-interface ProfileProps {
-  patients: Patient[];
-  selectedPatient: string | null;
-}
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-const Profile: React.FC<ProfileProps> = ({ patients, selectedPatient }) => {
-  const patient = patients.find((p) => p.name === selectedPatient);
+      return response.json();
+    },
+  });
+
+  const location = useLocation();
+
+  if (isPending) {
+    return <span className="bg-white w-full rounded-2xl">Loading...</span>;
+  }
+
+  if (error) {
+    return (
+      <span className="bg-white w-full rounded-2xl">
+        An error has occurred: {error.message}
+      </span>
+    );
+  }
+
+  const searchParams = new URLSearchParams(location.search);
+  const selectedPatient = searchParams.get("patient") || data[0].name;
+
+  const patient = data?.find((p: patient) => p.name === selectedPatient);
 
   if (!patient) {
     return (
@@ -24,23 +51,23 @@ const Profile: React.FC<ProfileProps> = ({ patients, selectedPatient }) => {
   const infoData = [
     {
       label: "Date Of Birth",
-      value: "August 23, 1996",
+      value: patient.date_of_birth,
       icon: "/profile/BirthIcon.png",
     },
     { label: "Gender", value: patient.gender, icon: "/profile/FemaleIcon.png" },
     {
       label: "Contact Info.",
-      value: "(415) 555-5678",
+      value: patient.phone_number,
       icon: "/profile/PhoneIcon.png",
     },
     {
       label: "Emergency Contacts",
-      value: "(415) 555-5678",
+      value: patient.emergency_contact,
       icon: "/profile/PhoneIcon.png",
     },
     {
       label: "Insurance Provider",
-      value: "Sunrise Health Assurance",
+      value: patient.insurance_type,
       icon: "/profile/InsuranceIcon.png",
     },
   ];
@@ -48,7 +75,7 @@ const Profile: React.FC<ProfileProps> = ({ patients, selectedPatient }) => {
   return (
     <div className="flex flex-col p-4 items-center w-full h-full">
       <img
-        src={patient.image}
+        src={patient.profile_picture}
         alt="Profile"
         className="w-[200px] h-[200px] object-cover rounded-lg"
       />

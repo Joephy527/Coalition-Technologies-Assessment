@@ -1,35 +1,55 @@
 import { useState } from "react";
-import { GoHome } from "react-icons/go";
-import { MdOutlinePeopleAlt } from "react-icons/md";
-import { CiCalendar } from "react-icons/ci";
-import { FiMessageSquare } from "react-icons/fi";
-import { IoMdCard } from "react-icons/io";
 
 const NavbarOption = [
   {
     id: 1,
     name: "Overview",
-    icon: <GoHome className="w-[15px] h-[17px]" size={17} />,
+    icon: (
+      <img
+        src="/header/home_FILL0_wght300_GRAD0_opsz24.svg"
+        alt="people icon"
+      />
+    ),
   },
   {
     id: 2,
     name: "Patient",
-    icon: <MdOutlinePeopleAlt className="w-6 h-[17px]" size={17} />,
+    icon: (
+      <img
+        src="/header/group_FILL0_wght300_GRAD0_opsz24.svg"
+        alt="people icon"
+      />
+    ),
   },
   {
     id: 3,
     name: "Schedule",
-    icon: <CiCalendar className="w-[15px] h-[17px]" size={17} />,
+    icon: (
+      <img
+        src="/header/calendar_today_FILL0_wght300_GRAD0_opsz24.svg"
+        alt="calendar icon"
+      />
+    ),
   },
   {
     id: 2,
     name: "Message",
-    icon: <FiMessageSquare className="w-[19px] h-[17px]" size={17} />,
+    icon: (
+      <img
+        src="/header/chat_bubble_FILL0_wght300_GRAD0_opsz24.svg"
+        alt="calendar icon"
+      />
+    ),
   },
   {
     id: 3,
     name: "Transaction",
-    icon: <IoMdCard className="w-[21px] h-[17px]" size={17} />,
+    icon: (
+      <img
+        src="/header/credit_card_FILL0_wght300_GRAD0_opsz24.svg"
+        alt="calendar icon"
+      />
+    ),
   },
 ];
 
@@ -47,7 +67,7 @@ const Navbar = () => {
           }`}
         >
           {route.icon}
-          <span className="text-sm font-medium">{route.name}</span>
+          <span className="text-sm font-bold">{route.name}</span>
         </div>
       ))}
     </nav>
