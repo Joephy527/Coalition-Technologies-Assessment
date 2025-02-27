@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+### Coalition Technology Eyosiyas Kiros
+## Tech Care
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## HealthCare Management Dashboard
 
-Currently, two official plugins are available:
+Welcome to the HealthCare Management Dashboard! This intuitive dashboard is designed to help manage your patients' health histories effectively. It allows you to oversee patient data and provides vital information such as heart rate, blood pressure, diagnoses, and lab results.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Visit the site:
+[Tech Care](https://tech-care-nu.vercel.app/) 
 
-## Expanding the ESLint configuration
+### Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Visualizations**: Charts and graphs displaying patient blood pressure, respiratory rate, temperature, and heart rate with an intuitive and attractive UI.
+- **Patient Diagnostic List**: Comprehensive medical records highlighting problems, diagnoses, and the current status of health issues.
+- **Lab Results**: Detailed lab results for every patient.
+- **Patient Profiles**: Easily accessible profiles for each patient.
+- **Patient List**: A complete list of all patients.
 
-- Configure the top-level `parserOptions` property like this:
+### Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+To see the product in action, follow these steps:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. **Install Node.js**: [Download and install Node.js](https://nodejs.org/) if you haven't already.
+2. **Install Dependencies**: Open your terminal and run:
+   ```bash
+   npm install
+3. ** Run the Project: Start the development server with Vite:
+    ```bash
+    npm run dev
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Acknowledgments
+This project is developed by Eyosiyas Kiros.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
