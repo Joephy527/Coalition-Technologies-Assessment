@@ -1,4 +1,4 @@
-### Coalition Technology Eyosiyas Kiros
+### Coalition Technology - Eyosiyas Kiros
 ## Tech Care
 
 ## HealthCare Management Dashboard
